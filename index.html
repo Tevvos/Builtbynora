@@ -1504,19 +1504,44 @@
 
 
 
-    @media (max-width: 600px) {
+   /* ===== Mobile portrait : hero en écrans super épurés ===== */
+@media (max-width: 600px) {
+
+  body {
+    font-size: 14px;
+  }
+
+  /* HERO plein écran + décalé sous le header */
   .hero {
-    padding-top: 80px;
-    padding-bottom: 28px; /* bannière moins haute */
+    min-height: 130vh;          /* un peu plus qu’un écran pour décaler le panneau */
+    padding-top: 120px;         /* évite que "Coaching en ligne" soit coupé */
+    padding-bottom: 60px;
+    align-items: flex-start;    /* on gère nous-mêmes le centrage avec les marges */
   }
 
   .hero-video-inner {
-    gap: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 48px;                  /* gros espace entre bloc texte et panneau */
   }
 
-  /* Titre un peu plus fin pour éviter le bloc massif */
+  /* BLOC 1 : titre + slogan */
+  .hero-copy {
+    width: 100%;
+  }
+
+  .eyebrow {
+    margin-bottom: 10px;
+  }
+
   .hero-heading {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
+    line-height: 1.15;
+  }
+
+  .hero-title-main {
+    letter-spacing: 0.14em;
   }
 
   .hero-title-sub {
@@ -1524,65 +1549,85 @@
   }
 
   .hero-description {
-    font-size: 0.9rem;
-    margin-bottom: 12px;
+    font-size: 0.86rem;
+    max-width: 26rem;
+    margin-top: 18px;
+    margin-bottom: 6vh;         /* espace avant le bloc BUILT NOW */
   }
 
+  /* BLOC 2 : CTA BUILT NOW au milieu du premier écran */
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
+    margin-bottom: 20vh;        /* pousse fort le panneau formulaire en dessous du fold */
   }
 
   .btn-main {
     width: 100%;
     justify-content: center;
+    padding: 16px 24px;
+    font-size: 0.98rem;
   }
 
-  /* Panneau formulaire plus léger et plus bas */
-  .hero-signup-card.hero-signup-floating {
-    margin-top: 20px;
-    padding: 16px 18px;
+  .btn-secondary {
+    padding: 10px 18px;
+    font-size: 0.84rem;
+    background: transparent;
   }
 
   .hero-note {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
+    opacity: 0.85;
+    margin-top: 4px;
   }
 
-  .lang-switch {
-    display: none; /* on ne garde que le logo en très petit écran */
+  .hero-note-dot {
+    width: 7px;
+    height: 7px;
   }
 
-  .hero-title-wrap {
-    align-items: flex-start;
-    gap: 10px;
+  /* BLOC 3 : panneau "Prête à passer au niveau supérieur ?" */
+  .hero-signup-card.hero-signup-floating {
+    margin-top: 0;              /* c'est la marge de .hero-actions qui le pousse plus bas */
+    max-width: 100%;
+    padding: 20px 20px;
   }
 
-  .hero-dumbbell-icon {
-    width: 40px;
-    height: 40px;
+  .hero-signup-card h3 {
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
   }
 
-  .hero-bbn-mark {
-    bottom: 8px;
-    padding: 4px 10px;
-    transform: translateX(-50%) scale(0.9);
+  .hero-signup-card p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
   }
 
-  .whatsapp-float {
-    bottom: 16px;
-    right: 16px;
+  .hero-signup-card small {
+    font-size: 0.72rem;
   }
 
-  .whatsapp-tooltip {
-    bottom: 76px;
-    right: 20px;
+  /* Sections suivantes : un peu d'air au-dessus comme un nouvel écran */
+  .about-section,
+  .programs-section,
+  .results-section,
+  .signup-section,
+  .faq-section {
+    padding-top: 60px;
+    padding-bottom: 52px;
   }
 
-  .form-grid {
-    grid-template-columns: minmax(0, 1fr);
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.86rem;
   }
 }
+
 /* ===== Mobile ultra clean (style "Apple") ===== */
 @media (max-width: 600px) {
 
@@ -2710,3 +2755,4 @@ cards.forEach(card => {
 </script>
 </body>
 </html>
+
