@@ -1694,31 +1694,27 @@
     font-size: 0.86rem;
   }
 }
-/* ===== Mobile ultra clean (style "Apple") ===== */
+/* ===== Mobile portrait : hero en blocs qui défilent ===== */
 @media (max-width: 600px) {
 
-  body {
-    font-size: 14px;
-  }
-
-  header {
-    padding-top: 6px;
-    padding-bottom: 6px;
-  }
-
-  /* HERO plus légère et plus aérée */
+  /* Le hero prend de la hauteur, façon “écran” */
   .hero {
-    padding-top: 72px;
-    padding-bottom: 44px; /* plus d’espace avant la section suivante */
+    padding-top: 80px;
+    padding-bottom: 72px;
   }
 
   .hero-video-inner {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;  /* espace entre texte et panneau */
+    align-items: stretch;
+    gap: 40px; /* gros espace entre texte et panneau */
   }
 
-  /* Titre + sous-titre plus fins */
+  /* BLOC 1 : gros titre + slogan */
+  .hero-copy {
+    text-align: left;
+  }
+
   .hero-heading {
     font-size: 1.6rem;
     line-height: 1.15;
@@ -1729,80 +1725,68 @@
   }
 
   .hero-title-sub {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
   }
 
   .hero-description {
     font-size: 0.86rem;
-    max-width: 100%;
-    margin-bottom: 10px;
+    max-width: 26rem;
+    margin-top: 16px;
+    margin-bottom: 40px; /* espace avant le bloc CTA */
   }
 
+  /* BLOC 2 : CTA BUILT NOW presque seul sur l’écran */
   .hero-actions {
-    gap: 10px;
-    margin-bottom: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 56px; /* gros espace après le CTA */
   }
 
   .btn-main {
-    padding: 14px 22px;
-    font-size: 0.95rem;
     width: 100%;
     justify-content: center;
+    padding: 16px 24px;
+    font-size: 0.98rem;
   }
 
   .btn-secondary {
-    font-size: 0.85rem;
     padding: 10px 18px;
+    font-size: 0.84rem;
+    background: transparent;
   }
 
-  /* Phrase "Pour les femmes..." plus discrète */
   .hero-note {
-    font-size: 0.75rem;
-    opacity: 0.9;
+    font-size: 0.76rem;
+    opacity: 0.8;
+    margin-top: 4px;
   }
 
-  .hero-note-dot {
-    width: 7px;
-    height: 7px;
-  }
-
-  /* Panneau formulaire : plus bas, plus clean, pleine largeur */
+  /* BLOC 3 : panneau “Prête à passer au niveau supérieur ?” */
   .hero-signup-card.hero-signup-floating {
-    margin-top: 30px;        /* le panneau descend un peu */
+    margin-top: 24px;
     max-width: 100%;
-    padding: 16px 18px;
+    padding: 20px 20px;
   }
 
   .hero-signup-card h3 {
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
   }
 
   .hero-signup-card p {
-    font-size: 0.78rem;
-    line-height: 1.4;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
   }
 
   .hero-signup-card small {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
   }
 
-  /* Plus d’air entre les sections en dessous */
-  .about-section,
-  .programs-section,
-  .results-section,
-  .signup-section,
-  .faq-section {
-    padding-top: 52px;
-    padding-bottom: 52px;
-  }
-
-  .section-title {
-    font-size: 1.4rem;
-  }
-
-  .section-subtitle {
-    font-size: 0.86rem;
+  /* On redonne de l’air au début de la section suivante */
+  .about-section {
+    padding-top: 64px;
   }
 }
 
