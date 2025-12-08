@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Montserrat (titres) + Poppins (texte) -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-/* espace avant le bloc BUILT NO
+
   <style>
     :root {
       --bg-dark: #050510;
@@ -25,6 +25,121 @@
       --radius-xl: 28px;
       --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
     }
+/* ===== Carousel transformations sous "La coach derrière BuiltbyNora" ===== */
+.about-carousel {
+  margin: 50px auto 50px;  /* ⬅️ augmente la marge au-dessus pour descendre les cartes */
+  max-width: 1100px;
+  padding: 30px 0;
+}
+
+
+.about-carousel-track {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  padding: 60px 24px 80px; /* ↑ plus haut / ↓ plus bas */
+min-height: 420px;
+
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,0.05), transparent 60%),
+    linear-gradient(135deg, rgba(8,8,22,0.9), rgba(8,8,22,0.98));
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.9);
+
+  /* 🔁 remplace ces lignes */
+  /* overflow: hidden;
+  overflow-y: visible; */
+
+  /* ✅ par celles-ci */
+  overflow-x: hidden;
+  overflow-y: visible;
+
+  position: relative;
+  transform: skewX(-10deg);
+
+}
+
+
+.about-carousel-item {
+  width: 190px;
+  aspect-ratio: 4 / 5;
+  border-radius: 22px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2b2b3b, #181824);
+  position: relative;
+  transform-origin: center bottom;
+  transition:
+    transform 0.18s ease-out,
+    filter 0.18s ease-out,
+    box-shadow 0.18s ease-out;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.8);
+}
+
+
+.about-carousel-item {
+  overflow: hidden; /* 🔒 masque les bords */
+}
+
+.about-carousel-item {
+  margin-top: 40px; /* ajuste ici 👈 */
+}
+
+
+.about-carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* ✅ redresse + zoom léger */
+  transform: skewX(10deg) scale(1.18);
+  transform-origin: center;
+
+  transition: transform 0.25s ease-out;
+}
+
+
+
+.about-carousel-label {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(5,5,16,0.85);
+  border: 1px solid rgba(255,255,255,0.2);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Mobile : carousel qui scrolle horizontalement avec le doigt */
+@media (max-width: 800px) {
+  .about-carousel {
+    max-width: 100%;
+  }
+
+  .about-carousel-track {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    transform: none; /* on enlève le penché sur mobile pour éviter les bugs */
+  }
+
+  .about-carousel-item {
+    flex: 0 0 70%;
+    scroll-snap-align: center;
+    transform: none;
+  }
+
+  .about-carousel-item:hover {
+    transform: scale(1.03);
+  }
+
+
+}
+
+
 
     * {
       box-sizing: border-box;
@@ -470,9 +585,9 @@
     /* ===== HERO ===== */
     .hero {
       position: relative;
-      min-height: 50vh;
-      padding-top: 50px;
-      padding-bottom: 20px;
+      min-height: 90vh;
+      padding-top: 96px;
+      padding-bottom: 48px;
       display: flex;
       align-items: center;
       overflow: hidden;
@@ -658,6 +773,60 @@
       position: relative;
       z-index: 1;
     }
+    /* Voyant statut coach */
+.coach-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+/* Base */
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+/* 🔴 EN LIGNE : rouge + contour + glow */
+.status-dot-online {
+  background: #ff2b2b;
+  border: 1.5px solid #00000;
+  box-shadow: 0 0 6px rgba(255, 43, 43, 0.7);
+animation: statusBlink 2s ease-in-out infinite;
+
+}
+
+/* Animation pulse lente */
+@keyframes statusBlink {
+  0% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(255, 43, 43, 1);
+  }
+  50% {
+    opacity: 0.25;
+    box-shadow: 0 0 2px rgba(255, 43, 43, 0.4);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(255, 43, 43, 1);
+  }
+}
+
+
+/* ⚪ HORS LIGNE : gris mat */
+.status-dot-offline {
+  background: #666;
+  border: 1.5px solid #888;
+  box-shadow: none;
+  opacity: 0.75;
+}
+
+
 
     .hero-signup-floating {
       border-radius: 24px;
@@ -1504,48 +1673,19 @@
 
 
 
-   /* ===== Mobile portrait : hero en écrans super épurés ===== */
-@media (max-width: 600px) {
+    @media (max-width: 600px) {
   .hero {
     padding-top: 80px;
     padding-bottom: 28px; /* bannière moins haute */
   }
 
-  body {
-    font-size: 14px;
-  }
-
-  /* HERO plein écran + décalé sous le header */
-  .hero {
-    min-height: 120vh;          /* un peu plus qu’un écran pour décaler le panneau */
-    padding-top: 150px;         /* évite que "Coaching en ligne" soit coupé */
-    padding-bottom: 80px;
-    align-items: flex-start;    /* on gère nous-mêmes le centrage avec les marges */
-  }
-
   .hero-video-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 55px;                  /* gros espace entre bloc texte et panneau */
+    gap: 18px;
   }
 
-  /* BLOC 1 : titre + slogan */
-  .hero-copy {
-    width: 100%;
-  }
-
-  .eyebrow {
-    margin-bottom: 10px;
-  }
-
+  /* Titre un peu plus fin pour éviter le bloc massif */
   .hero-heading {
-    font-size: 1.6rem;
-    line-height: 1.15;
-  }
-
-  .hero-title-main {
-    letter-spacing: 0.14em;
+    font-size: 1.7rem;
   }
 
   .hero-title-sub {
@@ -1553,85 +1693,65 @@
   }
 
   .hero-description {
-    font-size: 0.86rem;
-    max-width: 26rem;
-    margin-top: 18px;
-    margin-bottom: 35vh;         /* espace avant le bloc BUILT NOW */
+    font-size: 0.9rem;
+    margin-bottom: 12px;
   }
 
-  /* BLOC 2 : CTA BUILT NOW au milieu du premier écran */
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
-    margin-bottom: 40vh;        /* pousse fort le panneau formulaire en dessous du fold */
   }
 
   .btn-main {
     width: 100%;
     justify-content: center;
-    padding: 16px 24px;
-    font-size: 0.98rem;
   }
 
-  .btn-secondary {
-    padding: 10px 18px;
-    font-size: 0.84rem;
-    background: transparent;
+  /* Panneau formulaire plus léger et plus bas */
+  .hero-signup-card.hero-signup-floating {
+    margin-top: 20px;
+    padding: 16px 18px;
   }
 
   .hero-note {
-    font-size: 0.76rem;
-    opacity: 0.85;
-    margin-top: 4px;
+    font-size: 0.78rem;
   }
 
-  .hero-note-dot {
-    width: 7px;
-    height: 7px;
+  .lang-switch {
+    display: none; /* on ne garde que le logo en très petit écran */
   }
 
-  /* BLOC 3 : panneau "Prête à passer au niveau supérieur ?" */
-  .hero-signup-card.hero-signup-floating {
-    margin-top: 40;              /* c'est la marge de .hero-actions qui le pousse plus bas */
-    max-width: 50%;
-    padding: 20px 20px;
+  .hero-title-wrap {
+    align-items: flex-start;
+    gap: 10px;
   }
 
-  .hero-signup-card h3 {
-    font-size: 0.95rem;
-    letter-spacing: 0.06em;
+  .hero-dumbbell-icon {
+    width: 40px;
+    height: 40px;
   }
 
-  .hero-signup-card p {
-    font-size: 0.8rem;
-    line-height: 1.5;
-    margin-bottom: 16px;
+  .hero-bbn-mark {
+    bottom: 8px;
+    padding: 4px 10px;
+    transform: translateX(-50%) scale(0.9);
   }
 
-  .hero-signup-card small {
-    font-size: 0.72rem;
+  .whatsapp-float {
+    bottom: 16px;
+    right: 16px;
   }
 
-  /* Sections suivantes : un peu d'air au-dessus comme un nouvel écran */
-  .about-section,
-  .programs-section,
-  .results-section,
-  .signup-section,
-  .faq-section {
-    padding-top: 60px;
-    padding-bottom: 52px;
+  .whatsapp-tooltip {
+    bottom: 76px;
+    right: 20px;
   }
 
-  .section-title {
-    font-size: 1.4rem;
-  }
-
-  .section-subtitle {
-    font-size: 0.86rem;
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
-
 /* ===== Mobile ultra clean (style "Apple") ===== */
 @media (max-width: 600px) {
 
@@ -1876,7 +1996,6 @@
           <a href="#nora" data-i18n="nav.nora">Qui est Nora ?</a>
           <a href="#programmes" data-i18n="nav.programmes">Programmes</a>
           <a href="#resultats" data-i18n="nav.resultats">Résultats</a>
-          <a href="#inscription" data-i18n="nav.inscription">Inscription</a>
           <a href="#faq" data-i18n="nav.faq">FAQ</a>
         </nav>
 
@@ -1885,14 +2004,9 @@
           <button class="lang-btn" data-lang="en">EN</button>
         </div>
 
-        <div class="nav-cta">
-          <button class="btn btn-ghost" onclick="document.querySelector('#inscription').scrollIntoView({behavior:'smooth'})">
-            <span data-i18n="nav.login">Se connecter</span>
-          </button>
-          <button class="btn btn-primary" onclick="document.querySelector('#inscription').scrollIntoView({behavior:'smooth'})">
-            <span data-i18n="nav.signup">S'inscrire</span> <span class="icon-arrow">↗</span>
-          </button>
-        </div>
+        
+
+
       </div>
     </div>
   </header>
@@ -1928,33 +2042,47 @@
           </p>
 
           <div class="hero-actions">
-            <button class="btn btn-primary btn-main" onclick="document.querySelector('#inscription').scrollIntoView({behavior:'smooth'})">
-              <span data-i18n="hero.cta1">BUILT NOW</span>
-              <span class="icon-arrow">💪</span>
-            </button>
-            <button class="btn btn-ghost" onclick="document.querySelector('#programmes').scrollIntoView({behavior:'smooth'})">
-              <span data-i18n="hero.cta2">Voir les programmes</span>
-            </button>
-          </div>
+  <button class="btn btn-primary btn-main" onclick="document.querySelector('#programmes').scrollIntoView({behavior:'smooth'})">
+    <span data-i18n="hero.cta1">BUILT NOW</span>
+    <span class="icon-arrow">💪</span>
+  </button>
+  <button class="btn btn-ghost" onclick="document.querySelector('#programmes').scrollIntoView({behavior:'smooth'})">
+    <span data-i18n="hero.cta2">Voir les programmes</span>
+  </button>
+</div>
+
           <div class="hero-note">
             <div class="hero-note-dot"></div>
             <span data-i18n="hero.note">Pour les femmes qui veulent être fortes, féminines et confiantes.</span>
           </div>
         </div>
 
-        <div class="hero-signup-card hero-signup-floating" data-reveal-child>
-          <h3 data-i18n="hero.signupTitle">Prête à passer au niveau supérieur&nbsp;?</h3>
-          <p data-i18n="hero.signupText">
-            Réponds au formulaire d’inscription, je reviens vers toi avec un plan
-            adapté à ton objectif, ton niveau et ton emploi du temps.
-          </p>
-          <button class="btn btn-primary" style="width: 100%; justify-content: center;"
-                  onclick="document.querySelector('#inscription').scrollIntoView({behavior:'smooth'})">
-            <span data-i18n="hero.signupButton">Remplir le formulaire</span>
-          </button>
-          <small data-i18n="hero.signupSmall">Aucun paiement immédiat – on discute de ton projet avant tout.</small>
-        </div>
-      </div>
+       <div class="hero-signup-card hero-signup-floating" data-reveal-child>
+  <h3>Prête à passer au niveau supérieur&nbsp;?</h3>
+
+  <p>
+    On en discute ensemble avant de passer à l’action.<br>
+    Je t’aide à choisir ce qui te correspond vraiment.
+  </p>
+
+  <button
+    class="btn btn-primary"
+    style="width: 100%; justify-content: center;"
+    onclick="window.open('https://wa.me/33656889093','_blank')"
+  >
+    <span>Discuter avec la coach</span>
+  </button>
+
+  <!-- ✅ Voyant statut coach -->
+  <div class="coach-status">
+    <span id="coach-status-dot" class="status-dot"></span>
+    <span id="coach-status-text">Coach en ligne</span>
+  </div>
+
+  <small>Premier échange gratuit &amp; sans engagement.</small>
+</div>
+
+
 
       <!-- Petit logo BBN en bas de bannière -->
       <div class="hero-bbn-mark">
@@ -1973,6 +2101,7 @@
             Tu ne confies pas ton corps à n’importe qui. Voici qui je suis, et comment je peux t’aider à construire le tien.
           </p>
         </div>
+
 
         <div class="about-layout">
           <div class="about-photo-wrap" data-reveal-child>
@@ -2016,6 +2145,38 @@
         </div>
       </div>
     </section>
+
+<!-- Carousel transformations sous le titre -->
+<div class="about-carousel" data-reveal-child>
+  <div class="about-carousel-track">
+    <div class="about-carousel-item">
+      <img src="images/image_1.jpg" alt="Transformation 1">
+      <span class="about-carousel-label">Avant</span>
+    </div>
+
+    <div class="about-carousel-item">
+      <img src="images/image_2.jpg" alt="Transformation 2">
+      <span class="about-carousel-label">Décision</span>
+    </div>
+
+    <div class="about-carousel-item">
+      <img src="images/image_3.jpg" alt="Transformation 3">
+      <span class="about-carousel-label">Discipline</span>
+    </div>
+
+    <div class="about-carousel-item">
+      <img src="images/image_4.jpg" alt="Transformation 4">
+      <span class="about-carousel-label">Résultat</span>
+    </div>
+
+    <div class="about-carousel-item">
+      <img src="images/image_5.jpg" alt="Transformation 5">
+      <span class="about-carousel-label">Fierté</span>
+    </div>
+  </div>
+</div>
+
+
 
     <!-- PROGRAMMES -->
     <section id="programmes" class="section-reveal">
@@ -2142,98 +2303,7 @@
 
 
     <!-- INSCRIPTION -->
-    <section id="inscription" class="signup-section section-reveal">
-      <div class="container signup-layout">
-        <div class="signup-panel" data-reveal-child>
-          <div class="signup-panel-header">
-            <h3 data-i18n="signup.title">Formulaire d’inscription – BuiltbyNora</h3>
-            <p data-i18n="signup.text">
-              Remplis ce formulaire avec le plus de détails possible. Je te réponds
-              par e-mail ou WhatsApp pour valider ton profil et te proposer l’offre la plus adaptée.
-            </p>
-          </div>
-
-          <form action="#" method="post">
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="nom" data-i18n="form.nom.label">Prénom / Nom <span class="required">*</span></label>
-                <input type="text" id="nom" name="nom"
-                       placeholder="Ex : Nora Dupont"
-                       data-i18n-placeholder="placeholder.nom" required>
-              </div>
-              <div class="form-group">
-                <label for="email" data-i18n="form.email.label">E-mail <span class="required">*</span></label>
-                <input type="email" id="email" name="email"
-                       placeholder="Ex : toi@email.com"
-                       data-i18n-placeholder="placeholder.email" required>
-              </div>
-              <div class="form-group">
-                <label for="whatsapp" data-i18n="form.whatsapp.label">WhatsApp (optionnel)</label>
-                <input type="tel" id="whatsapp" name="whatsapp"
-                       placeholder="+33 6 12 34 56 78"
-                       data-i18n-placeholder="placeholder.whatsapp">
-              </div>
-              <div class="form-group">
-                <label for="objectif" data-i18n="form.objectif.label">Objectif principal <span class="required">*</span></label>
-                <select id="objectif" name="objectif" required>
-                  <option value="" data-i18n="form.objectif.opt0">Sélectionner…</option>
-                  <option value="perte-de-poids" data-i18n="form.objectif.opt1">Perte de poids / sèche</option>
-                  <option value="prise-de-masse" data-i18n="form.objectif.opt2">Prise de muscle</option>
-                  <option value="recomposition" data-i18n="form.objectif.opt3">Recomposition (perte de gras + tonification)</option>
-                  <option value="performance" data-i18n="form.objectif.opt4">Performance / force</option>
-                  <option value="autre" data-i18n="form.objectif.opt5">Autre</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="experience" data-i18n="form.experience.label">Ton niveau actuel <span class="required">*</span></label>
-              <select id="experience" name="experience" required>
-                <option value="" data-i18n="form.experience.opt0">Sélectionner…</option>
-                <option value="debutante" data-i18n="form.experience.opt1">Débutante totale</option>
-                <option value="intermediaire" data-i18n="form.experience.opt2">Intermédiaire</option>
-                <option value="avancee" data-i18n="form.experience.opt3">Avancée</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="disponibilites" data-i18n="form.dispo.label">Combien de séances / semaine peux-tu faire ?</label>
-              <input type="text" id="disponibilites" name="disponibilites"
-                     placeholder="Ex : 3 séances de 1h, 2 séances de 45 min…"
-                     data-i18n-placeholder="placeholder.dispo">
-            </div>
-
-            <div class="form-group">
-              <label for="message" data-i18n="form.message.label">Parle-moi un peu de toi, de ton objectif, de ton contexte :</label>
-              <textarea id="message" name="message"
-                        placeholder="Ex : ton historique, blocages, contraintes (travail, enfants…), etc."
-                        data-i18n-placeholder="placeholder.message"></textarea>
-            </div>
-
-            <div class="signup-footer">
-              <button type="submit" class="btn btn-primary" style="align-self:flex-start;">
-                <span data-i18n="signup.button">Envoyer ma demande d’inscription</span>
-              </button>
-              <small data-i18n="signup.small">
-                En envoyant ce formulaire, tu acceptes d’être contactée par e-mail ou message
-                pour parler de ton coaching. Aucune carte bancaire n’est demandée ici.
-              </small>
-            </div>
-          </form>
-        </div>
-
-        <div class="highlight-card" data-reveal-child>
-          <p><strong data-i18n="highlight.title">Comment ça se passe après ton inscription&nbsp;?</strong></p>
-          <p data-i18n="highlight.step1">1. Tu remplis le formulaire avec le plus de détails possible.</p>
-          <p data-i18n="highlight.step2">2. Je te réponds sous 24–48h pour valider ton profil et te proposer l’offre adaptée.</p>
-          <p data-i18n="highlight.step3">3. Si tout est ok, on fixe la date de début, tu reçois ton plan détaillé (entraînement + nutrition) et on commence le suivi.</p>
-          <p data-i18n="highlight.conclusion">
-            Pas de “quick fix”, pas de régime miracle. Juste un accompagnement humain,
-            des outils concrets, et surtout une approche qui respecte ton rythme de vie.
-          </p>
-        </div>
-      </div>
-    </section>
+    
 
     <!-- FAQ -->
     <section id="faq" class="section-reveal">
@@ -2293,9 +2363,9 @@
   </footer>
 
   <!-- BOUTON WHATSAPP FLOTTANT -->
-  <!-- Remplace LE_NUMERO_WHATSAPP_ICI par ton numéro au format international, ex: 33712345678 -->
+  <!-- Remplace LE_NUMERO_WHATSAPP_ICI par ton numéro au format international, ex: 33656889093 -->
   <a class="whatsapp-float"
-     href="https://wa.me/LE_NUMERO_WHATSAPP_ICI?text=Hello%20Nora%2C%20je%20voudrais%20des%20infos%20sur%20le%20coaching%20BuiltbyNora"
+     href="https://wa.me/33656889093?text=Hello%20Nora%2C%20je%20voudrais%20des%20infos%20sur%20le%20coaching%20BuiltbyNora"
      target="_blank" rel="noopener" aria-label="Contacter Nora sur WhatsApp">
     💬
   </a>
@@ -2757,18 +2827,73 @@ cards.forEach(card => {
     }
   });
 </script>
+<script>
+  function updateCoachStatus() {
+    const hour = new Date().getHours();
+    const offline = hour >= 3 && hour < 9;
+
+    const dot = document.getElementById("coach-status-dot");
+    const text = document.getElementById("coach-status-text");
+    if (!dot || !text) return;
+
+    if (offline) {
+      dot.className = "status-dot status-dot-offline";
+      text.textContent = "Coach hors ligne";
+    } else {
+      dot.className = "status-dot status-dot-online";
+      text.textContent = "En ligne";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateCoachStatus();
+    setInterval(updateCoachStatus, 300000);
+  });
+</script>
+
+<script>
+  // Effet loupe fluide sur le carousel "Qui est Nora ?"
+  window.addEventListener("DOMContentLoaded", function () {
+    const track = document.querySelector(".about-carousel-track");
+    if (!track) return;
+
+    const items = Array.from(track.querySelectorAll(".about-carousel-item"));
+
+    function updateFromMouse(event) {
+      const rect = track.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+
+      items.forEach((item) => {
+        const itemRect = item.getBoundingClientRect();
+        const center = (itemRect.left + itemRect.right) / 2 - rect.left;
+        const distance = Math.abs(center - x);
+        const maxDistance = rect.width * 0.7; // plus grand = réactions plus douces
+        const ratio = Math.min(distance / maxDistance, 1);
+
+        const scale = 1.2 - 0.35 * ratio;         // 1.2 au centre → ~0.85 loin
+        const translateY = -20 * (1 - ratio);     // l’image centrale remonte un peu
+        const brightness = 1.1 - 0.25 * ratio;    // centre plus lumineux
+
+        item.style.transform =
+          "translateY(" + translateY + "px) scale(" + scale + ")";
+        item.style.filter = "brightness(" + brightness + ")";
+        item.style.zIndex = String(100 - Math.round(80 * ratio));
+      });
+    }
+
+    function resetItems() {
+      items.forEach((item) => {
+        item.style.transform = "translateY(0) scale(1)";
+        item.style.filter = "brightness(1)";
+        item.style.zIndex = "";
+      });
+    }
+
+    track.addEventListener("mousemove", updateFromMouse);
+    track.addEventListener("mouseleave", resetItems);
+  });
+</script>
+
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
