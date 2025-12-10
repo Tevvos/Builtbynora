@@ -1839,6 +1839,17 @@ min-height: 420px;
   .form-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card-link:hover .card {
+  transform: translateY(-4px);
+}
+
+
 }
 /* ===== Mobile ultra clean (style "Apple") ===== */
 @media (max-width: 600px) {
@@ -2284,9 +2295,10 @@ min-height: 420px;
     <div class="grid-3" data-reveal-child>
 
       <!-- ✅ LEVEL UP -->
-      <div class="card">
-        <div class="card-icon">🏋️‍♀️</div>
-        <div class="card-label">Level Up</div>
+      <a href="level-up.html" class="card-link">
+  <div class="card">
+    <div class="card-icon">🏋️‍♀️</div>
+    <div class="card-label">Level Up</div>
         <h3>Recomposition & bases solides</h3>
 
         <div class="program-price">
@@ -2308,6 +2320,7 @@ min-height: 420px;
       </div>
 
       <!-- ⭐ SIGNATURE -->
+<a href="signature.html" class="card-link">
       <div class="card best-choice">
         <span class="best-badge">Best choice</span>
 
@@ -2335,6 +2348,7 @@ min-height: 420px;
       </div>
 
       <!-- ✨ LIFESTYLE -->
+<a href="lifestyle.html" class="card-link">
       <div class="card">
         <div class="card-icon">🏃‍♀️</div>
         <div class="card-label">Lifestyle</div>
