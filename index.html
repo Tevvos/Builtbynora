@@ -121,23 +121,39 @@ min-height: 420px;
 
   .about-carousel-track {
     justify-content: flex-start;
-    overflow-x: auto;
+    overflow-x: auto;              /* on peut swiper horizontalement */
     scroll-snap-type: x mandatory;
-    transform: none; /* on enlève le penché sur mobile pour éviter les bugs */
+    transform: none;               /* plus de penché */
+
+    /* 🔒 cache la barre de scroll mais garde le slide au doigt */
+    -ms-overflow-style: none;      /* IE / Edge */
+    scrollbar-width: none;         /* Firefox */
+  }
+  .about-carousel-track::-webkit-scrollbar {
+    display: none;                 /* Chrome / Safari */
   }
 
   .about-carousel-item {
     flex: 0 0 70%;
     scroll-snap-align: center;
+    transform: none;               /* carte droite */
+  }
+
+  /* 💡 très important : on enlève aussi le skew de l'image sur mobile */
+  .about-carousel-item img {
     transform: none;
   }
 
   .about-carousel-item:hover {
     transform: scale(1.03);
   }
+}
 
 
 }
+
+
+
 
 
 
@@ -792,13 +808,38 @@ min-height: 420px;
   border-radius: 50%;
 }
 
-/* 🔴 EN LIGNE : rouge + contour + glow */
+/* 🟢 EN LIGNE : vert + glow doux */
 .status-dot-online {
-  background: #ff2b2b;
-  border: 1.5px solid #00000;
-  box-shadow: 0 0 6px rgba(255, 43, 43, 0.7);
-animation: statusBlink 2s ease-in-out infinite;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 
+  background: #2eff5a;            /* vert vif */
+  border: 1.5px solid #0e3b1e;    /* contour sombre élégant */
+  box-shadow:
+    0 0 6px rgba(46, 255, 90, 0.8),
+    0 0 14px rgba(46, 255, 90, 0.5);
+
+  animation: onlinePulse 2s ease-in-out infinite;
+}
+
+/* pulsation douce (respiration) */
+@keyframes onlinePulse {
+  0% {
+    box-shadow:
+      0 0 6px rgba(46, 255, 90, 0.6),
+      0 0 12px rgba(46, 255, 90, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 10px rgba(46, 255, 90, 0.9),
+      0 0 20px rgba(46, 255, 90, 0.7);
+  }
+  100% {
+    box-shadow:
+      0 0 6px rgba(46, 255, 90, 0.6),
+      0 0 12px rgba(46, 255, 90, 0.4);
+  }
 }
 
 /* Animation pulse lente */
@@ -1083,6 +1124,52 @@ animation: statusBlink 2s ease-in-out infinite;
     .social-pill span.icon {
       font-size: 1rem;
     }
+/* ===== Checklist programmes ===== */
+.program-features {
+  list-style: none;
+  margin: 14px 0 16px;
+  padding: 0;
+  font-size: 0.82rem;
+}
+
+.program-features li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+}
+
+.program-features li.yes::before {
+  content: "✔";
+  color: #4cff9e;
+  font-weight: 700;
+}
+
+.program-features li.no::before {
+  content: "✖";
+  color: #ff5555;
+  font-weight: 700;
+}
+
+.program-price {
+  margin-top: 14px;
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.program-price .duration {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.program-price .price {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
 
     /* ===== Programmes ===== */
 @keyframes cardFloatIn {
@@ -1094,6 +1181,7 @@ animation: statusBlink 2s ease-in-out infinite;
     transform: translateY(0);
     opacity: 1;
   }
+
 }
 
 .grid-3 {
@@ -1938,6 +2026,7 @@ animation: statusBlink 2s ease-in-out infinite;
     padding: 20px 20px;
   }
 
+
   .hero-signup-card h3 {
     font-size: 0.95rem;
     letter-spacing: 0.06em;
@@ -2156,7 +2245,7 @@ animation: statusBlink 2s ease-in-out infinite;
 
     <div class="about-carousel-item">
       <img src="images/image_2.jpg" alt="Transformation 2">
-      <span class="about-carousel-label">Décision</span>
+      <span class="about-carousel-label">Motivation</span>
     </div>
 
     <div class="about-carousel-item">
@@ -2180,70 +2269,100 @@ animation: statusBlink 2s ease-in-out infinite;
 
     <!-- PROGRAMMES -->
     <section id="programmes" class="section-reveal">
-      <div class="container">
-        <div class="section-header" data-reveal-child>
-          <div class="section-kicker" data-i18n="programmes.kicker">Programmes</div>
-          <h2 class="section-title" data-i18n="programmes.title">Choisis le type d’accompagnement</h2>
-          <p class="section-subtitle" data-i18n="programmes.subtitle">
-            Chaque coaching est adapté à ton niveau, ton emploi du temps et ton matériel (salle, maison, mix des deux).
-          </p>
+  <div class="container">
+
+    <!-- En-tête -->
+    <div class="section-header" data-reveal-child>
+      <div class="section-kicker">Programmes</div>
+      <h2 class="section-title">Choisis ton accompagnement</h2>
+      <p class="section-subtitle">
+        Trois niveaux de suivi, selon ton objectif, ton rythme et ton engagement.
+      </p>
+    </div>
+
+    <!-- GRILLE DES 3 CARTES -->
+    <div class="grid-3" data-reveal-child>
+
+      <!-- ✅ LEVEL UP -->
+      <div class="card">
+        <div class="card-icon">🏋️‍♀️</div>
+        <div class="card-label">Level Up</div>
+        <h3>Recomposition & bases solides</h3>
+
+        <div class="program-price">
+          <div class="duration">1 mois</div>
+          <div class="price">99€</div>
         </div>
 
-        <div class="grid-3" data-reveal-child>
-          <article class="card" onclick="document.querySelector('#inscription').scrollIntoView({behavior:'smooth'})">
-            <div class="card-icon">🏋️‍♀️</div>
-            <div class="card-label" data-i18n="prog1.label">Level Up</div>
-            <h3 data-i18n="prog1.title">Recomposition &amp; confiance</h3>
-            <p data-i18n="prog1.text">
-              Pour débutantes/intermédiaires qui veulent se tonifier, perdre du gras
-              et enfin se sentir bien dans leurs vêtements.
-            </p>
-            <ul>
-              <li data-i18n="prog1.li1">Programme full body ou split adapté</li>
-              <li data-i18n="prog1.li2">Suivi hebdo par message</li>
-              <li data-i18n="prog1.li3">Guide nutrition + exemples de journées</li>
-            </ul>
-            <div class="card-price" data-i18n="prog1.price">À partir de 1 mois d’engagement</div>
-            <small data-i18n="prog1.small">Parfait si tu veux des bases solides sans te prendre la tête.</small>
-          </article>
+        <ul class="program-features">
+          <li class="yes">Plan d’entraînement personnalisé</li>
+          <li class="yes">Plan alimentaire personnalisé</li>
+          <li class="yes">Support par mail</li>
 
-          <article class="card best-choice" onclick="document.querySelector('#inscription').scrollIntoView({behavior:'smooth'})">
-            <span class="best-badge" data-i18n="prog.best">Best choice</span>
-            <div class="card-icon">❤</div>
-            <div class="card-label" data-i18n="prog2.label">Signature</div>
-            <h3 data-i18n="prog2.title">BuiltbyNora Premium</h3>
-            <p data-i18n="prog2.text">
-              Suivi complet avec ajustements chaque semaine pour des résultats
-              visibles et durables.
-            </p>
-            <ul>
-              <li data-i18n="prog2.li1">Plan d’entraînement personnalisé</li>
-              <li data-i18n="prog2.li2">Macros &amp; suivi nutrition détaillé</li>
-              <li data-i18n="prog2.li3">Bilan vidéo ou vocal tous les 7 jours</li>
-            </ul>
-            <div class="card-price" data-i18n="prog2.price">Places limitées chaque mois</div>
-            <small data-i18n="prog2.small">Idéal si tu veux être accompagnée de A à Z.</small>
-          </article>
+          <li class="no">Suivi WhatsApp instantané</li>
+          <li class="no">Coaching mental</li>
+          <li class="no">Appels visio</li>
+        </ul>
 
-          <article class="card" onclick="document.querySelector('#inscription').scrollIntoView({behavior:'smooth'})">
-            <div class="card-icon">🏃‍♀️</div>
-            <div class="card-label" data-i18n="prog3.label">Lifestyle</div>
-            <h3 data-i18n="prog3.title">Busy Girl Coaching</h3>
-            <p data-i18n="prog3.text">
-              Pour les femmes très occupées (travail, études, enfants) qui veulent
-              des séances efficaces et réalistes.
-            </p>
-            <ul>
-              <li data-i18n="prog3.li1">Séances 30–40 min optimisées</li>
-              <li data-i18n="prog3.li2">Routines faciles à intégrer</li>
-              <li data-i18n="prog3.li3">Ajustements selon ton planning</li>
-            </ul>
-            <div class="card-price" data-i18n="prog3.price">Sur mesure selon ton emploi du temps</div>
-            <small data-i18n="prog3.small">Tu n’as pas besoin de 2h par jour pour avancer.</small>
-          </article>
-        </div>
+        <small>Idéal pour commencer et se remettre en mouvement.</small>
       </div>
-    </section>
+
+      <!-- ⭐ SIGNATURE -->
+      <div class="card best-choice">
+        <span class="best-badge">Best choice</span>
+
+        <div class="card-icon">❤️</div>
+        <div class="card-label">Signature</div>
+        <h3>Accompagnement premium BuiltbyNora</h3>
+
+        <div class="program-price">
+          <div class="duration">3 mois</div>
+          <div class="price">420€</div>
+        </div>
+
+        <ul class="program-features">
+  <li class="yes">Plan d’entraînement personnalisé</li>
+  <li class="yes">Plan nutrition & ajustements</li>
+  <li class="yes">Suivi régulier</li>
+  <li class="yes">Bilan toutes les 2 semaines</li>
+  <li class="yes">Accompagnement avec moi via WhatsApp</li>
+  <li class="yes">Accompagnement mental</li>
+  <li class="yes">Appels visio privés</li>
+</ul>
+
+
+        <small>Le meilleur équilibre résultats / accompagnement.</small>
+      </div>
+
+      <!-- ✨ LIFESTYLE -->
+      <div class="card">
+        <div class="card-icon">🏃‍♀️</div>
+        <div class="card-label">Lifestyle</div>
+        <h3>Busy girl coaching</h3>
+
+        <div class="program-price">
+          <div class="duration">1 mois</div>
+          <div class="price">150€</div>
+        </div>
+
+        <ul class="program-features">
+          <li class="yes">Séances courtes & efficaces</li>
+          <li class="yes">Organisation adaptée à ton rythme</li>
+          <li class="yes">Plan simple & réaliste</li>
+<li class="yes">Appels visio</li>
+
+          <li class="no">Suivi intensif</li>
+          <li class="no">Coaching mental</li>
+         
+        </ul>
+
+        <small>Pour rester régulière sans pression.</small>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
     <!-- RÉSULTATS -->
 <section id="resultats" class="section-reveal">
